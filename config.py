@@ -1,12 +1,14 @@
 #CONSTANTS AND CONFIG SETTINGS
 import os
 from dotenv import load_dotenv
-import logging
-logging.basicConfig(level=logging.INFO)
-logging.info("CONSTANTS loaded.")
+from logger import get_logger
+
+logger = get_logger(__name__)
+logger.debug("Constants loaded.")
 
 #loading env
 load_dotenv()
+logger.debug(".env loaded.")
 
 #-----API
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather"

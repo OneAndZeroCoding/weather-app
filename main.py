@@ -1,13 +1,10 @@
 #LAUNCHING AND SET UP
 from ui import WeatherApp
-import logging
-import config
-import ui
-import api
+from logger import get_logger
 
-logging.basicConfig(level=logging.INFO)
-logging.info("Main app started")
+logger = get_logger(__name__)
 
 if __name__=="__main__":
     app = WeatherApp()
+    logger.info("App initialized")
     app.mainloop()

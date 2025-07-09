@@ -2,9 +2,10 @@
 import customtkinter as ctk
 import config
 import api
-import logging
-logging.basicConfig(level=logging.INFO)
-logging.info("UI loaded.")
+from logger import get_logger
+
+logger = get_logger(__name__)
+logger.debug("UI module loaded")
 
 class WeatherApp(ctk.CTk):
     def __init__(self):
@@ -30,6 +31,8 @@ class WeatherApp(ctk.CTk):
         self.result_label = ctk.CTkLabel(self, text="Result will be here")
         self.result_label.pack(pady=30)
 
+        logger.info("UI loaded successfully")
+
     def get_weather(self):
         city = self.city_input.get().strip()
 
@@ -38,10 +41,11 @@ class WeatherApp(ctk.CTk):
         
         try:
             weather = api.get_weather_data(city)
-            logging.info("Data recieved")
+            logger.info("Weather Data recieved")
 
             if "error" in weather:
                 self.result_label.configure(text=f"{weather['error']}")
+                logger.error(f"Error message : {weather.get("error")}")
 
             display = (
                 f"City : {weather['city']}\n"
@@ -49,5 +53,7 @@ class WeatherApp(ctk.CTk):
                 f"Condition: {weather['desc'].title()}"
             )
             self.result_label.configure(text=display)
+            logger.debug("Info displayed.")
+
         except Exception as e:
-            logging.error(f"Error : {e}")
+            logger.error(f"Error : {e}")
