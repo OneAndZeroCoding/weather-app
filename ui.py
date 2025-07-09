@@ -12,13 +12,13 @@ class WeatherApp(ctk.CTk):
         #------window configuaration
         self.title("Weather App")
         self.geometry(config.WINDOW_SIZE)
-        ctk.set_appearance_mode("Dark")
+        ctk.set_appearance_mode(config.DEFAULT_THEME_MODE)
         ctk.set_default_color_theme(config.DEFAULT_THEME)
 
         #-----Layout
 
         #-----City input
-        self.city_input = ctk.CTkEntry(self, placeholder_text="Enter a city")
+        self.city_input = ctk.CTkEntry(self, placeholder_text=f"Enter a city ex: {config.DEFAULT_CITY}")
         self.city_input.pack(pady=20)
 
         #-----Get weather
