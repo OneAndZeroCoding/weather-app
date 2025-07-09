@@ -1,0 +1,16 @@
+#virtual env
+weather-app/
+
+#python cache
+__pycache__/
+*.py[cod]
+
+#system files
+.DS_Store
+Thumbs.db
+
+#env settings
+.env
+
+#Logging
+*.log
