@@ -1,6 +1,7 @@
 #CUSTOMTKINTER CODE GOES HERE
 import customtkinter as ctk
 import config
+import api
 import logging
 logging.basicConfig(level=logging.INFO)
 logging.info("UI loaded.")
@@ -18,7 +19,7 @@ class WeatherApp(ctk.CTk):
         #-----Layout
 
         #-----City input
-        self.city_input = ctk.CTkEntry(self, placeholder_text=f"Enter a city ex: {config.DEFAULT_CITY}")
+        self.city_input = ctk.CTkEntry(self, placeholder_text=f"City: {config.DEFAULT_CITY}")
         self.city_input.pack(pady=20)
 
         #-----Get weather
@@ -30,4 +31,23 @@ class WeatherApp(ctk.CTk):
         self.result_label.pack(pady=30)
 
     def get_weather(self):
-        self.result_label.configure(text="Fetching weather")
+        city = self.city_input.get().strip()
+
+        if not city:
+            city = config.DEFAULT_CITY
+        
+        try:
+            weather = api.get_weather_data(city)
+            logging.info("Data recieved")
+
+            if "error" in weather:
+                self.result_label.configure(text=f"{weather['error']}")
+
+            display = (
+                f"City : {weather['city']}\n"
+                f"Temperature: {weather['temperature']}°C\n"
+                f"Condition: {weather['desc'].title()}"
+            )
+            self.result_label.configure(text=display)
+        except Exception as e:
+            logging.error(f"Error : {e}")

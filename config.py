@@ -11,6 +11,7 @@ load_dotenv()
 #-----API
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
 API_KEY = os.getenv("API_KEY")
+UNITS = "metric"
 
 #-----Custom Tkinter settings
 WINDOW_SIZE = "500x300"
