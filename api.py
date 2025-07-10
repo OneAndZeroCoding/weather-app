@@ -32,6 +32,7 @@ def get_weather_data(city_name):
                 "404": "City not found. Please check again.",
                 "429": "Too many requests, please slow down",
                 "401": "We're having trouble connecting.",
+                "400": "Please enter a city.",
                 "502": "Server is not responding. Try again later",
                 "504": "Server is busy. Try again later."
             }
@@ -48,7 +49,7 @@ def get_weather_data(city_name):
                 "icon": data["weather"][0]["icon"]
             }
 
-            logger.info(f"Weather data sent")
+            logger.info(f"Respnse data sent")
             return weather
 
     except requests.ConnectionError:
